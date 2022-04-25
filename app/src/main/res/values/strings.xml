@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AdManagerLib</string>
+    <string name="appid">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="inter">/6499/example/interstitial</string>
+    <string name="native_exit">/6499/example/native</string>
+    <string name="banner">/6499/example/banner</string>
+    <string name="resume">ca-app-pub-3940256099942544/3419835294</string>
+</resources>

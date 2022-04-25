@@ -1,0 +1,4 @@
+
+rootProject.name = "AdManagerLib"
+include ':app'
+include ':ads'
