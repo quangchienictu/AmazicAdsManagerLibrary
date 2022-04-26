@@ -15,14 +15,24 @@
         android:layout_height="wrap_content">
         <include layout="@layout/ads_native_shimer"  />
     </FrameLayout>
+
     <Button
-        android:layout_below="@+id/fr_ads1"
         android:id="@+id/clickInter"
-        android:layout_centerInParent="true"
-        android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/fr_ads1"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"
         android:text="Show Inter" />
+
+    <Button
+        android:id="@+id/loadAndShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/clickInter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Load and show" />
     <include
         android:id="@+id/include"
         layout="@layout/layout_banner"

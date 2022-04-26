@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 
 import com.example.ads.util.AdManager;
 import com.example.ads.callback.*;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
 import com.google.android.gms.ads.nativead.NativeAd;
@@ -32,6 +33,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.loadAndShow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AdManager.getInstance().loadAndShowInter(MainActivity.this, "/6499/example/interstitial",0,5000,new InterCallback(){
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        startActivity(new Intent(MainActivity.this,MainActivity2.class));
+                    }
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError i) {
+                        super.onAdFailedToLoad(i);
+                        startActivity(new Intent(MainActivity.this,MainActivity2.class));
+                    }
+
+                    @Override
+                    public void onAdFailedToShow(AdError adError) {
+                        super.onAdFailedToShow(adError);
+                        startActivity(new Intent(MainActivity.this,MainActivity2.class));
+                    }
+                });
+            }
+        });
 
         fr_ads1 = findViewById(R.id.fr_ads1);
         AdManager.getInstance().loadNativeAd(this, "/6499/example/native", new NativeCallback() {
@@ -79,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 
 }

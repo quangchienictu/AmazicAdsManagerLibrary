@@ -214,7 +214,6 @@ public class AppOpenManager implements Application.ActivityLifecycleCallbacks, L
     private AdRequest getAdRequest() {
         return new AdRequest.Builder().build();
     }
-
     private boolean wasLoadTimeLessThanNHoursAgo(long loadTime, long numHours) {
         long dateDifference = (new Date()).getTime() - loadTime;
         long numMilliSecondsPerHour = 3600000;

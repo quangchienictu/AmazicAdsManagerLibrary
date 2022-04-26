@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.BuildConfig;
@@ -31,6 +33,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
@@ -157,6 +160,11 @@ public class AdManager {
         return builder.build();
     }
 
+    private AdManagerAdRequest getAdRequestTimeOut(int timeOut) {
+        if(timeOut<5000) timeOut = 5000;
+        return (AdManagerAdRequest) new AdManagerAdRequest.Builder().setHttpTimeoutMillis(timeOut).build();
+    }
+
 
 
     // inter
@@ -186,6 +194,78 @@ public class AdManager {
                 });
 
     }
+    /**
+     load and show ads inter
+     */
+    public void loadAndShowInter(AppCompatActivity activity, String idInter, int timeDelay,int timeOut,InterCallback callback){
+        if (!isNetworkConnected()) {
+            callback.onAdClosed();
+            return;
+        }
+        if (AppOpenManager.getInstance().isInitialized()) {
+            AppOpenManager.getInstance().disableAppResumeWithActivity(activity.getClass());
+        }
+        dialog = new LoadingAdsDialog(activity);
+        dialog.show();
+        AdManagerInterstitialAd.load(activity, idInter, getAdRequestTimeOut(timeOut), new AdManagerInterstitialAdLoadCallback() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                dialog.dismiss();
+                callback.onAdFailedToLoad(loadAdError);
+                if (AppOpenManager.getInstance().isInitialized()) {
+                    AppOpenManager.getInstance().enableAppResumeWithActivity(activity.getClass());
+                }
+            }
+
+            @Override
+            public void onAdLoaded(@NonNull AdManagerInterstitialAd adManagerInterstitialAd) {
+                super.onAdLoaded(adManagerInterstitialAd);
+                if(adManagerInterstitialAd!=null){
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        adManagerInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                dialog.dismiss();
+                                callback.onAdClosed();
+                                if (AppOpenManager.getInstance().isInitialized()) {
+                                    AppOpenManager.getInstance().enableAppResumeWithActivity(activity.getClass());
+                                }
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                dialog.dismiss();
+                                callback.onAdClosed();
+                                if (AppOpenManager.getInstance().isInitialized()) {
+                                    AppOpenManager.getInstance().enableAppResumeWithActivity(activity.getClass());
+                                }
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                Log.d("TAG", "The ad was shown.");
+                            }
+                        });
+                        if (activity.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED) && adManagerInterstitialAd != null) {
+                            dialog.dismiss();
+                            adManagerInterstitialAd.show(activity);
+                        } else {
+                            if (AppOpenManager.getInstance().isInitialized()) {
+                                AppOpenManager.getInstance().enableAppResumeWithActivity(activity.getClass());
+                            }
+                            dialog.dismiss();
+                        }
+                    },timeDelay);
+                }
+            }
+        });
+
+    }
+
 
     /**
      Show ads inter
@@ -502,6 +582,8 @@ public class AdManager {
                 isTimeDelay = true;
             }
         }, timeDelay);
+
+
         if (timeOut > 0) {
             handlerTimeout = new Handler();
             rdTimeout = new Runnable() {
@@ -556,12 +638,7 @@ public class AdManager {
                 }
             }
         });
-
-
     }
-
-
-
     private void onShowSplash(Activity activity, InterCallback adListener) {
         isShowLoadingSplash = true;
         if (handlerTimeout != null && rdTimeout != null) {
@@ -652,5 +729,7 @@ public class AdManager {
 
         }
     }
+
+
 
 }
