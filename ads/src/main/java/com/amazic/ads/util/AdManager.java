@@ -1,4 +1,4 @@
-package com.example.ads.util;
+package com.amazic.ads.util;
 
 import android.app.Activity;
 import android.app.Application;
@@ -25,10 +25,10 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.BuildConfig;
 
-import com.example.ads.callback.*;
-import com.example.ads.dialog.*;
-import com.example.ads.R;
-import com.example.ads.callback.InterCallback;
+import com.amazic.ads.callback.*;
+import com.amazic.ads.dialog.*;
+import com.amazic.ads.R;
+import com.amazic.ads.callback.InterCallback;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;

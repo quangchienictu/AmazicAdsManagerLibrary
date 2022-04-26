@@ -1,10 +1,10 @@
-package com.example.ads.dialog;
+package com.amazic.ads.dialog;
 
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import com.example.ads.R;
+import com.amazic.ads.R;
 
 public class ResumeLoadingDialog extends Dialog {
 

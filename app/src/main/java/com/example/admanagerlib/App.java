@@ -1,7 +1,9 @@
 package com.example.admanagerlib;
 
-import android.app.Application;
-import com.example.ads.util.*;
+
+import com.amazic.ads.util.AdsApplication;
+import com.amazic.ads.util.AppOpenManager;
+
 import java.util.List;
 
 public class App extends AdsApplication {

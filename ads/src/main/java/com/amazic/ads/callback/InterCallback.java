@@ -1,4 +1,4 @@
-package com.example.ads.callback;
+package com.amazic.ads.callback;
 
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.LoadAdError;

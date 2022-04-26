@@ -1,4 +1,4 @@
-package com.example.ads.util;
+package com.amazic.ads.util;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.example.ads.util;
+package com.amazic.ads.util;
 
 import android.app.Activity;
 import android.app.Application;
@@ -24,7 +24,7 @@ import com.google.android.gms.ads.appopen.AppOpenAd;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import com.example.ads.dialog.*;
+import com.amazic.ads.dialog.*;
 
 public class AppOpenManager implements Application.ActivityLifecycleCallbacks, LifecycleObserver {
     private static final String TAG = "AppOpenManager";

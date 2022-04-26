@@ -1,4 +1,4 @@
-package com.example.ads.util;
+package com.amazic.ads.util;
 import android.app.Application;
 import java.util.List;
 import android.app.Activity;

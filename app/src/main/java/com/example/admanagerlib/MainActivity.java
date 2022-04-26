@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.example.ads.util.AdManager;
-import com.example.ads.callback.*;
+import com.amazic.ads.util.AdManager;
+import com.amazic.ads.callback.*;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.loadAndShow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AdManager.getInstance().loadAndShowInter(MainActivity.this, "/6499/example/interstitial",0,5000,new InterCallback(){
+                AdManager.getInstance().loadAndShowInter(MainActivity.this, "/6499/example/interstitial",0,10000,new InterCallback(){
                     @Override
                     public void onAdClosed() {
                         super.onAdClosed();
