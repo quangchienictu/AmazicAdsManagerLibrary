@@ -137,6 +137,12 @@ public class AdManager {
         }
     }
 
+    public void loadBannerFragment(final Activity mActivity, String id, final View rootView) {
+        final FrameLayout adContainer = rootView.findViewById(R.id.banner_container);
+        final ShimmerFrameLayout containerShimmer = rootView.findViewById(R.id.shimmer_container_banner);
+        loadBanner(mActivity, id, adContainer, containerShimmer, false);
+    }
+
     private AdSize getAdSize(Activity mActivity, Boolean useInlineAdaptive) {
         // Step 2 - Determine the screen width (less decorations) to use for the ad width.
         Display display = mActivity.getWindowManager().getDefaultDisplay();
