@@ -257,13 +257,13 @@ public class AdManager {
                             }
                         });
                         if (activity.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED) && adManagerInterstitialAd != null) {
-                            dialog.dismiss();
+                        //   dialog.dismiss();
                             adManagerInterstitialAd.show(activity);
                         } else {
                             if (AppOpenManager.getInstance().isInitialized()) {
                                 AppOpenManager.getInstance().enableAppResumeWithActivity(activity.getClass());
                             }
-                            dialog.dismiss();
+                         //   dialog.dismiss();
                         }
                     },timeDelay);
                 }
@@ -735,7 +735,8 @@ public class AdManager {
 
         }
     }
-
-
+    public void setOpenActivityAfterShowInterAds(boolean openActivityAfterShowInterAds) {
+        this.openActivityAfterShowInterAds = openActivityAfterShowInterAds;
+    }
 
 }
